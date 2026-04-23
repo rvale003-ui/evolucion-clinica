@@ -1,31 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Evolución Clínica</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolución Clínica</title>
 </head>
 
-<body style="font-family: Arial; padding: 20px;">
+<body style="font-family: Arial; padding: 15px;">
 
 <h2>Evolución Clínica</h2>
 
-<textarea id="texto" style="width:100%; height:250px;">
-Paciente en buenas condiciones generales, consciente lúcido y orientado, en Glasgow 15, sin dolor.
-Ventilando espontáneamente, sin oxígeno, FR 16, SatO2 98%.
-Hemodinámicamente estable, normotenso, eucárdico.
-</textarea>
+<label>Estado general:</label>
+<select id="estado">
+<option>buenas condiciones generales</option>
+<option>regulares condiciones generales</option>
+<option>grave</option>
+</select>
 
 <br><br>
 
-<button onclick="copiar()">Copiar evolución</button>
+<label>Conciencia:</label>
+<select id="conciencia">
+<option>consciente lúcido y orientado</option>
+<option>desorientado</option>
+<option>inquieto</option>
+</select>
+
+<br><br>
+
+<label>FR:</label>
+<input id="fr" placeholder="ej: 16">
+
+<br><br>
+
+<label>SatO2:</label>
+<input id="sat" placeholder="ej: 98">
+
+<br><br>
+
+<label>FC:</label>
+<input id="fc" placeholder="ej: 80">
+
+<br><br>
+
+<label>PAM:</label>
+<input id="pam" placeholder="ej: 90">
+
+<br><br>
+
+<label>Diuresis:</label>
+<input id="diuresis" placeholder="ej: 1200cc/24h">
+
+<br><br>
+
+<button onclick="generar()">Generar evolución</button>
+
+<br><br>
+
+<textarea id="resultado" style="width:100%; height:250px;"></textarea>
+
+<br><br>
+
+<button onclick="copiar()">Copiar</button>
 
 <script>
+function generar() {
+  let texto = `Paciente en ${estado.value}, ${conciencia.value}, sin dolor.
+Ventilando espontáneamente, FR ${fr.value}, SatO2 ${sat.value}%.
+Hemodinamia estable, PAM ${pam.value}, FC ${fc.value}.
+Diuresis ${diuresis.value}.`;
+
+  document.getElementById("resultado").value = texto;
+}
+
 function copiar() {
-  const texto = document.getElementById("texto");
-  texto.select();
+  let t = document.getElementById("resultado");
+  t.select();
   document.execCommand("copy");
-  alert("Copiado al portapapeles");
+  alert("Copiado");
 }
 </script>
 
